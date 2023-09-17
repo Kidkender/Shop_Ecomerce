@@ -1,9 +1,9 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home, Contact, Login, Register, Reset } from "./pages";
-import { Header, Footer } from "./components";
+import { Footer, Header } from "./components";
+import { Contact, Home, Login, Register, Reset } from "./pages";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
