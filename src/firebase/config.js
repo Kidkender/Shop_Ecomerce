@@ -7,13 +7,13 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyABQRWBFHtBJi-ABveLX1QRbPnds_aUOlk",
+  apiKey: import.meta.env.VITE_REACT_FIREBASE_API_KEY,
 
-  authDomain: "ecomerce-24be4.firebaseapp.com",
+  authDomain: import.meta.env.VITE_REACT_FIREBASE_AUTH_DOMAIN,
 
-  projectId: "ecomerce-24be4",
+  projectId: import.meta.env.VITE_REACT_FIREBASE_PROJECT_ID,
 
-  storageBucket: "ecomerce-24be4.appspot.com",
+  storageBucket: import.meta.env.VITE_REACT_FIREBASE_STORAGE_BUCKET,
 
   messagingSenderId: "164127673506",
 
