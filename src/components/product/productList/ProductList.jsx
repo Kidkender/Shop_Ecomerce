@@ -10,9 +10,10 @@ import {
   SORT_PRODUCTS,
   selectFilteredProducts,
 } from "~/redux/slice/filterSlice";
-import { Pagination } from "~/components";
-import { PropTypes } from "prop-types";
 
+import PropTypes from "prop-types";
+import Pagination from "../pagination/Pagination";
+import { Search } from "~/components";
 const cx = classNames.bind(styles);
 
 const ProductList = ({ products }) => {
@@ -23,7 +24,7 @@ const ProductList = ({ products }) => {
 
   //Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(9);
+  const [productsPerPage] = useState(9);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -100,7 +101,7 @@ const ProductList = ({ products }) => {
 };
 
 ProductList.propTypes = {
-  products: PropTypes.object,
+  products: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default ProductList;

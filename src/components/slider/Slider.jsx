@@ -3,6 +3,7 @@ import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
 import { sliderData } from "./Slider-data";
 import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -56,9 +57,12 @@ const Slider = () => {
                   <h2>{heading}</h2>
                   <p>{desc}</p>
                   <hr />
-                  <a href="#product" className="--btn --btn-primary">
+                  {/* <a href="#product" className="--btn --btn-primary">
                     Shop Now
-                  </a>
+                  </a> */}
+                  <Link to="/product" className="--btn --btn-primary">
+                    Shop Now
+                  </Link>
                 </div>
               </>
             )}

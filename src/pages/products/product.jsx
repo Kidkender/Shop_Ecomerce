@@ -11,8 +11,8 @@ import {
   STORE_PRODUCTS,
   selectProducts,
 } from "~/redux/slice/productSlice";
-import ProductFilter from "./productFilter/ProductFilter";
-import ProductList from "./productList/ProductList";
+
+import { ProductFilter, ProductList } from "~/components/product";
 
 const cx = classNames.bind(styles);
 
