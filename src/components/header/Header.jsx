@@ -3,12 +3,16 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { FaShoppingCart, FaTimes, FaUserCircle } from "react-icons/fa";
 import { HiOutlineMenu } from "react-icons/hi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { auth } from "~/firebase/config";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "~/redux/slice/authSlice";
+import {
+  CALCULATE_TOTAL_QUANTITY,
+  selectCartTotalQuantity,
+} from "~/redux/slice/cartSlice";
 import ShowOnLogIn, { ShowOnLogOut } from "../hiddenLink/HiddenLink";
 import styles from "./Header.module.scss";
 
@@ -23,23 +27,31 @@ const logo = (
   </div>
 );
 
-const cart = (
-  <span className={cx("cart")}>
-    <Link to="/cart">
-      Cart
-      <FaShoppingCart size={20} />
-      <p>0</p>
-    </Link>
-  </span>
-);
-
 const activeLink = ({ isActive }) => (isActive ? cx("active") : "");
+
 const Header = () => {
+  const [showMenu, setShowMenu] = useState(false);
+  const [name, setName] = useState("");
+  const [scrollPage, setScrollPage] = useState(false);
+  const cartTotalQuantity = useSelector(selectCartTotalQuantity);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showMenu, setShowMenu] = useState(false);
-  const [name, setName] = useState("");
+  console.log("total quantity", cartTotalQuantity);
+
+  useEffect(() => {
+    dispatch(CALCULATE_TOTAL_QUANTITY());
+  }, []);
+
+  const fixNarBar = () => {
+    if (window.scrollY > 50) {
+      setScrollPage(true);
+    } else {
+      setScrollPage(false);
+    }
+  };
+
+  window.addEventListener("scroll", fixNarBar);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -63,6 +75,7 @@ const Header = () => {
         );
       } else {
         setName("");
+        dispatch(REMOVE_ACTIVE_USER());
       }
     });
   }, [dispatch, name]);
@@ -88,8 +101,18 @@ const Header = () => {
       });
   };
 
+  const cart = (
+    <span className={cx("cart")}>
+      <Link to="/cart">
+        Cart
+        <FaShoppingCart size={20} />
+        <p>{cartTotalQuantity}</p>
+      </Link>
+    </span>
+  );
+
   return (
-    <header>
+    <header className={scrollPage ? `${cx("fixed")}` : null}>
       <div className={cx("header")}>
         {logo}
 

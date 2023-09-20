@@ -48,11 +48,11 @@ const ProductItem = ({ product, grid, id, name, price, desc, imageURL }) => {
 };
 
 ProductItem.propTypes = {
-  product: PropTypes.string,
-  grid: PropTypes.string,
+  product: PropTypes.object,
+  grid: PropTypes.bool,
   id: PropTypes.string,
   name: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   desc: PropTypes.string,
   imageURL: PropTypes.string,
 };

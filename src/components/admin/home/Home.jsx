@@ -5,6 +5,7 @@ import { BsCart4 } from "react-icons/bs";
 import { FaCartArrowDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useFetchCollection } from "~/Hooks";
+import { Chart, InfoBox } from "~/components";
 import {
   CALC_TOTAL_ORDERS_AMOUNT,
   STORE_ORDER,

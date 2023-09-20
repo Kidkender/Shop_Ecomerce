@@ -7,13 +7,14 @@ const cx = classNames.bind(styles);
 const Pagination = ({
   currentPage,
   setCurrentPage,
-  producsPerPage,
+  productsPerPage,
   totalProducts,
 }) => {
   const pageNumbers = [];
 
-  const totalPages = totalProducts / producsPerPage;
+  const totalPages = totalProducts / productsPerPage;
 
+  console.log(productsPerPage);
   const [pageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
@@ -32,12 +33,16 @@ const Pagination = ({
   };
 
   const paginatePrev = () => {
+    setCurrentPage(currentPage - 1);
     if ((currentPage - 1) % pageNumberLimit === 0) {
       setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
   };
 
+  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
   return (
     <ul className={cx("pagination")}>
       <li

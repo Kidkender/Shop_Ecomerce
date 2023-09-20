@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   product: productSlice,
   filter: filterSlice,
-  order: orderSlice,
+  orders: orderSlice,
   cart: cartSlice,
   checkout: checkoutSlice,
 });

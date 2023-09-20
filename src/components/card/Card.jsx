@@ -9,7 +9,7 @@ const Card = ({ children, cardClass }) => {
 };
 
 Card.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   cardClass: PropTypes.string,
 };
 export default Card;

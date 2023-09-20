@@ -15,8 +15,9 @@ import {
 import { ProductFilter, ProductList } from "~/components/product";
 import { productsData } from "~/db/data";
 //Test
-import { addDoc, collection } from "firebase/firestore";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { db } from "~/firebase/config";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -44,13 +45,21 @@ const Product = () => {
     setShowFilter(!showFilter);
   };
 
-  //Test
-  const addProductToCollection = async (product) => {
+  //Test 01
+
+  const addProduct = async (product) => {
     try {
-      const docRef = await addDoc(collection(db, "products"), product);
-      console.log("Sản phẩm đã được thêm vào bộ sưu tập với ID: ", docRef.id);
+      await addDoc(collection(db, "products"), {
+        name: product.name,
+        imageURL: product.imageURL,
+        price: Number(product.price),
+        category: product.category,
+        brand: product.brand,
+        desc: product.desc,
+        createdAt: Timestamp.now().toDate(),
+      });
     } catch (error) {
-      console.error("Lỗi khi thêm sản phẩm: ", error);
+      toast.error(error.message);
     }
   };
 
@@ -58,7 +67,7 @@ const Product = () => {
     <section>
       <button
         onClick={() => {
-          productsData.map((product) => addProductToCollection(product));
+          productsData.map((product) => addProduct(product));
         }}
       >
         Test add product

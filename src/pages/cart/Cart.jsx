@@ -8,12 +8,12 @@ import {
   CALCULATE_SUBTOTAL,
   CALCULATE_TOTAL_QUANTITY,
   CLEAR_CART,
-  DECREASE_TO_CART,
-  REMOVE_ITEM_CART,
+  DECREASE_CART,
+  REMOVE_FROM_CART,
   SAVE_URL,
   selectCartItems,
   selectCartTotalAmount,
-  selectCartTotalQuantities,
+  selectCartTotalQuantity,
 } from "~/redux/slice/cartSlice";
 import { selectIsLoggedIn } from "~/redux/slice/authSlice";
 import { FaTrashAlt } from "react-icons/fa";
@@ -23,7 +23,7 @@ const cx = classNames.bind(styles);
 const Cart = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotalAmount = useSelector(selectCartTotalAmount);
-  const cartTotalQuantity = useSelector(selectCartTotalQuantities);
+  const cartTotalQuantity = useSelector(selectCartTotalQuantity);
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -33,11 +33,11 @@ const Cart = () => {
     dispatch(ADD_TO_CART);
   };
   const removeFromCart = () => {
-    dispatch(REMOVE_ITEM_CART);
+    dispatch(REMOVE_FROM_CART);
   };
 
   const decreaseCart = () => {
-    dispatch(DECREASE_TO_CART);
+    dispatch(DECREASE_CART);
   };
 
   const clearCart = () => {

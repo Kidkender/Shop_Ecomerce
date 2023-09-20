@@ -9,7 +9,7 @@ import styles from "./productDetail.module.scss";
 import {
   ADD_TO_CART,
   CALCULATE_TOTAL_QUANTITY,
-  DECREASE_TO_CART,
+  DECREASE_CART,
   selectCartItems,
 } from "~/redux/slice/cartSlice";
 
@@ -39,7 +39,7 @@ const ProductDetail = () => {
   };
 
   const decreaseCart = (product) => {
-    dispatch(DECREASE_TO_CART(product));
+    dispatch(DECREASE_CART(product));
     dispatch(CALCULATE_TOTAL_QUANTITY());
   };
 
