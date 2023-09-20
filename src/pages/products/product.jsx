@@ -13,6 +13,10 @@ import {
 } from "~/redux/slice/productSlice";
 
 import { ProductFilter, ProductList } from "~/components/product";
+import { productsData } from "~/db/data";
+//Test
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "~/firebase/config";
 
 const cx = classNames.bind(styles);
 
@@ -40,8 +44,25 @@ const Product = () => {
     setShowFilter(!showFilter);
   };
 
+  //Test
+  const addProductToCollection = async (product) => {
+    try {
+      const docRef = await addDoc(collection(db, "products"), product);
+      console.log("Sản phẩm đã được thêm vào bộ sưu tập với ID: ", docRef.id);
+    } catch (error) {
+      console.error("Lỗi khi thêm sản phẩm: ", error);
+    }
+  };
+
   return (
     <section>
+      <button
+        onClick={() => {
+          productsData.map((product) => addProductToCollection(product));
+        }}
+      >
+        Test add product
+      </button>
       <div className={`container ${cx("product")}`}>
         <aside
           className={
