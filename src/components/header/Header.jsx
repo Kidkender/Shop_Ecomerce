@@ -37,8 +37,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("total quantity", cartTotalQuantity);
-
   useEffect(() => {
     dispatch(CALCULATE_TOTAL_QUANTITY());
   }, []);

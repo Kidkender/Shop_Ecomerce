@@ -21,17 +21,49 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  //Custom
+  function getCookie(name) {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + "=")) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  }
+  const postIdTokenToSessionLogin = async (endpoint, idToken, csrfToken) => {
+    return fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${idToken}`,
+        "X-CSRF-Token": csrfToken,
+      },
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error("Error posting ID token to session login endpoint");
+      }
+      console.log("successfully");
+      return response.json();
+    });
+  };
+
   const loginUser = (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        setIsLoading(false);
-        navigate("/");
-        toast.success("Login Successfully...");
-        console.log(user);
+
+        return user.getIdToken().then((idToken) => {
+          setIsLoading(false);
+          console.log("IdToken", idToken);
+
+          navigate("/");
+          toast.success("Login Successfully...");
+        });
       })
       .catch((error) => {
         setIsLoading(false);
@@ -48,7 +80,7 @@ const Login = () => {
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
         const user = result.user;
-        console.log("token user", user);
+        // console.log("token user", user);
         toast.success("Login Successfully...");
         navigate("/");
       })

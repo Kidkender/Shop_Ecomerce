@@ -29,19 +29,19 @@ const Cart = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
 
-  const increaseCart = () => {
-    dispatch(ADD_TO_CART);
+  const increaseCart = (cart) => {
+    dispatch(ADD_TO_CART(cart));
   };
-  const removeFromCart = () => {
-    dispatch(REMOVE_FROM_CART);
+  const removeFromCart = (cart) => {
+    dispatch(REMOVE_FROM_CART(cart));
   };
 
-  const decreaseCart = () => {
-    dispatch(DECREASE_CART);
+  const decreaseCart = (cart) => {
+    dispatch(DECREASE_CART(cart));
   };
 
   const clearCart = () => {
-    dispatch(CLEAR_CART);
+    dispatch(CLEAR_CART());
   };
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const Cart = () => {
                 {cartItems.map((cart, index) => {
                   const { id, name, price, imageURL, cartQuantity } = cart;
                   return (
-                    <tr key={id}>
+                    <tr key={index}>
                       <td>{index + 1}</td>
                       <td>
                         <p>

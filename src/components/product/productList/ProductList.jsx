@@ -43,7 +43,7 @@ const ProductList = ({ products }) => {
   }, [dispatch, products, search]);
 
   return (
-    <div className={cx["product-list"]} id="product">
+    <div className={cx("product-list")} id="product">
       <div className={cx("top")}>
         <div className={cx("icons")}>
           <BsFillGridFill

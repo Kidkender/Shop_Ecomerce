@@ -12,11 +12,11 @@ const cx = classNames.bind(styles);
 
 const Contact = () => {
   // console.log(process.env);
-  console.log(import.meta.env.VITE_REACT_APP_EMAILJS_SERVICE_ID);
+  // console.log(import.meta.env.VITE_REACT_APP_EMAILJS_SERVICE_ID);
   const form = useRef();
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log(form.current);
+    // console.log(form.current);
 
     emailjs
       .sendForm(
@@ -27,7 +27,7 @@ const Contact = () => {
       )
       .then(
         (result) => {
-          console.log(result);
+          // console.log(result);
           toast.success("Message sent successfully");
         },
         (error) => {

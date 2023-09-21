@@ -93,7 +93,7 @@ const ProductFilter = () => {
           />
         </div>
         <br />
-        <button className="--btn --btn-danger" onClick={() => clearFilters()}>
+        <button className="--btn --btn-danger" onClick={clearFilters}>
           Clear Filter
         </button>
       </div>

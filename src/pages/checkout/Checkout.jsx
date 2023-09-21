@@ -1,7 +1,9 @@
-import classNames from "classnames/bind";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import CheckOutForm from "~/components/checkOutForm/CheckOutForm";
 import { selectEmail } from "~/redux/slice/authSlice";
 import {
   CALCULATE_SUBTOTAL,
@@ -13,9 +15,11 @@ import {
   selectBillingAddress,
   selectShippingAddress,
 } from "~/redux/slice/checkoutSlice";
-import styles from "./Checkout.module.scss";
 
-const cx = classNames.bind(styles);
+const stripePromise = loadStripe(
+  import.meta.env.VITE_REACT_APP_STRIPE_PRIVATE_KEY
+);
+
 const Checkout = () => {
   const [message, setMessage] = useState("Initializing checkout...");
   const [clientSecret, setClientSecret] = useState("");
@@ -35,8 +39,6 @@ const Checkout = () => {
   const description = `Shop payment: Email: ${customEmail}, Amount: ${totalAmount}`;
 
   useEffect(() => {
-    // http://localhost:4242/create-payment-intent
-    // Create PaymentIntent as soon as the page loads
     fetch("https://eshop-react-firebase.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -77,7 +79,7 @@ const Checkout = () => {
       </section>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckOutForm />
         </Elements>
       )}
     </>

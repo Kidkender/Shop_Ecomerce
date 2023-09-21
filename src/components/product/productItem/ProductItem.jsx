@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Card } from "~/components";
 import { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY } from "~/redux/slice/cartSlice";
 import styles from "./ProductItem.module.scss";
+
 const cx = classnames.bind(styles);
 
 const ProductItem = ({ product, grid, id, name, price, desc, imageURL }) => {
