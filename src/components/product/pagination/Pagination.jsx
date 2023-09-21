@@ -14,7 +14,6 @@ const Pagination = ({
 
   const totalPages = totalProducts / productsPerPage;
 
-  console.log(productsPerPage);
   const [pageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
@@ -89,7 +88,7 @@ const Pagination = ({
 Pagination.propTypes = {
   currentPage: PropTypes.number,
   setCurrentPage: PropTypes.func,
-  producsPerPage: PropTypes.number,
+  productsPerPage: PropTypes.number,
   totalProducts: PropTypes.number,
 };
 
