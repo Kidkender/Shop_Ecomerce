@@ -42,7 +42,7 @@ const ResetPassword = () => {
           <Card>
             <form onSubmit={resetPassword}>
               <input
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"

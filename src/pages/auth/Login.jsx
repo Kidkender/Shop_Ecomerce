@@ -7,17 +7,18 @@ import { Card, Loader } from "~/components";
 import { useState } from "react";
 import {
   GoogleAuthProvider,
+  RecaptchaVerifier,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "~/firebase/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const cx = classNames.bind(styles);
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -49,14 +50,27 @@ const Login = () => {
     });
   };
 
-  const loginUser = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    // try {
+    //   const res = await httpRequest.post("/auth/login", {
+    //     email,
+    //     password,
+    //   });
+    //   setIsLoading(false);
+    //   console.log("IdToken", res.newToken);
+    //   navigate("/");
+    //   toast.success("Login Successfully...");
+    // } catch (error) {
+    //   setIsLoading(false);
+    //   toast.error(error.message);
+    // }
 
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-
         return user.getIdToken().then((idToken) => {
           setIsLoading(false);
           console.log("IdToken", idToken);
@@ -89,6 +103,12 @@ const Login = () => {
       });
   };
 
+  const handleFormEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    // setvalidEmail(ValidateEmail(newEmail));
+  };
+
   return (
     <>
       <ToastContainer />
@@ -103,11 +123,15 @@ const Login = () => {
           <h2>Login</h2>
           <Card>
             <form onSubmit={loginUser}>
+              {/* <label htmlFor="email"></label> */}
               <input
-                type="text"
+                type="email"
+                id="email"
+                name="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleFormEmailChange}
                 placeholder="Email"
+                // pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
                 required
               />
               <input
@@ -115,6 +139,13 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setpassword(e.target.value)}
                 placeholder="Password"
+                // pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                // onInvalid={(e) => {
+                //   e.target.setCustomValidity(
+                //     "Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
+                //   );
+                // }}
+                // onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
 

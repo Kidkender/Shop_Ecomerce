@@ -7,7 +7,7 @@ import { useState } from "react";
 import styles from "./Auth.module.scss";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { auth } from "~/firebase/config";
 
@@ -53,17 +53,25 @@ const Register = () => {
           <Card>
             <form onSubmit={registerUser}>
               <input
-                type="text"
+                type="email"
                 placeholder="Email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+
               <input
                 type="password"
                 value={password}
                 placeholder="Password"
                 onChange={(e) => setpassword(e.target.value)}
+                pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                onInvalid={(e) => {
+                  e.target.setCustomValidity(
+                    "Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
+                  );
+                }}
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
 
