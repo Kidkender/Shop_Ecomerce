@@ -9,12 +9,12 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { db, storage } from "../../../firebase/config";
-import Card from "../../card/Card";
-import Loader from "../../loader/Loader";
+import { db, storage } from "~/firebase/config";
+
 import styles from "./AddProduct.module.scss";
-import { selectProducts } from "../../../redux/slice/productSlice";
 import classNames from "classnames/bind";
+import { Card, Loader } from "~/components";
+import { selectProducts } from "~/redux/slice/productSlice";
 const cx = classNames.bind(styles);
 
 const categories = [
@@ -88,10 +88,11 @@ const AddProduct = () => {
 
   const addProduct = (e) => {
     e.preventDefault();
+    // console.log(product);
     setIsLoading(true);
 
     try {
-      addDoc(collection(db, "products"), {
+      const docRef = addDoc(collection(db, "products"), {
         name: product.name,
         imageURL: product.imageURL,
         price: Number(product.price),
@@ -100,6 +101,7 @@ const AddProduct = () => {
         desc: product.desc,
         createdAt: Timestamp.now().toDate(),
       });
+      console.log(docRef);
       setIsLoading(false);
       setUploadProgress(0);
       setProduct({ ...initialState });
@@ -163,7 +165,7 @@ const AddProduct = () => {
               {uploadProgress === 0 ? null : (
                 <div className={cx("progress")}>
                   <div
-                    className={styles["progress-bar"]}
+                    className={cx["progress-bar"]}
                     style={{ width: `${uploadProgress}%` }}
                   >
                     {uploadProgress < 100

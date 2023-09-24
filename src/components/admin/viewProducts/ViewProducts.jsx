@@ -18,6 +18,9 @@ import {
 } from "~/redux/slice/filterSlice";
 import { STORE_PRODUCTS, selectProducts } from "~/redux/slice/productSlice";
 import styles from "./ViewProducts.module.scss";
+import { BiExport } from "react-icons/bi";
+import { AiOutlineFileWord } from "react-icons/ai";
+import { CSVLink } from "react-csv";
 
 const cx = classNames.bind(styles);
 
@@ -90,6 +93,13 @@ const ViewProducts = () => {
             <b>{filteredProducts.length}</b> products found
           </p>
           <Search value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
+        <div className={cx("export")}>
+          <p>Export Product</p>
+          <CSVLink data={products}>
+            <BiExport className={cx("icon-export")} />
+          </CSVLink>
+          <AiOutlineFileWord className={cx("icon-export")} />
         </div>
         {filteredProducts.length === 0 ? (
           <p>No product found.</p>

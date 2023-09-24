@@ -3,5 +3,5 @@ export { default as ChangeOrderStatus } from "./changeOrderStatus/ChangeOrderSta
 export { default as Home } from "./Home/Home";
 export { default as NavBar } from "./navbar/NavBar";
 export { default as OrderDetails } from "./orderDetails/OrderDetails";
-export { default as Order } from "./orders/Order";
+export { default as Orders } from "./orders/Orders";
 export { default as ViewProducts } from "./viewProducts/ViewProducts";

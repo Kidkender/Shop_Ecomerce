@@ -19,8 +19,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
-auth.languageCode = auth.useDeviceLanguage();
-auth.tenantId = "test-hp8l7";
+// auth.languageCode = auth.useDeviceLanguage();
+// auth.tenantId = "test-hp8l7";
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 export default app;

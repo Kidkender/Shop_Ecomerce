@@ -8,16 +8,17 @@ import orderSlice, {
   STORE_ORDER,
   selectOrderHistory,
 } from "~/redux/slice/orderSlice";
-import styles from "./Order.module.scss";
+import styles from "./Orders.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Order = () => {
+const Orders = () => {
   const { data, isLoading } = useFetchCollection("orders");
   const orders = useSelector(selectOrderHistory);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(STORE_ORDER(data));
   }, [dispatch, data]);
@@ -25,10 +26,11 @@ const Order = () => {
   const handleClick = (id) => {
     navigate(`/admin/order-details/${id}`);
   };
+
   return (
     <>
       <div className={cx("order")}>
-        <h2>Your order history</h2>
+        <h2>Your Order History</h2>
         <p>
           Open an order to <b>Change order status</b>
         </p>
@@ -36,7 +38,7 @@ const Order = () => {
         <>
           {isLoading && <Loader />}
           <div className={cx("table")}>
-            {orderSlice.length === 0 ? (
+            {orders.length === 0 ? (
               <p>No order found</p>
             ) : (
               <table>
@@ -49,7 +51,6 @@ const Order = () => {
                     <th>Order Status</th>
                   </tr>
                 </thead>
-
                 <tbody>
                   {orders.map((order, index) => {
                     const {
@@ -67,7 +68,8 @@ const Order = () => {
                         </td>
                         <td>{id}</td>
                         <td>
-                          {"$"} {orderAmount}
+                          {"$"}
+                          {orderAmount}
                         </td>
                         <td>
                           <p
@@ -92,4 +94,5 @@ const Order = () => {
     </>
   );
 };
-export default Order;
+
+export default Orders;

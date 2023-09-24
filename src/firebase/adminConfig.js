@@ -21,3 +21,7 @@ export const generateToken = (uid) => {
       console.error("Error creating custom token", error);
     });
 };
+
+// export const revokeRefreshToken = (uid) => {
+//     getAuth().
+// }

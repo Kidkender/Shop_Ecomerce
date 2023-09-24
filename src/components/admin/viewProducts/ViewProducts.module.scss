@@ -44,3 +44,14 @@
     }
   }
 }
+
+.export {
+  float: right;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+.icon-export {
+  font-size: 20px;
+  right: 10px;
+}

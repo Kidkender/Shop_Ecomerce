@@ -10,6 +10,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { auth } from "~/firebase/config";
+import httpRequest from "~/utils/httpRequest";
 
 const cx = classNames.bind(styles);
 const Register = () => {
@@ -20,7 +21,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
 
     if (password !== Cpassword) {
@@ -29,19 +30,33 @@ const Register = () => {
     }
     setIsLoading(true);
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        // console.log(user);
-        setIsLoading(false);
-        toast.success("Registration Successful...");
-        navigate("/login");
-      })
-
-      .catch((error) => {
-        toast.error(error.message);
-        setIsLoading(false);
+    try {
+      const res = await httpRequest.post("/auth/signup", {
+        email,
+        password,
       });
+      setIsLoading(false);
+      console.log("IdToken", res);
+      navigate("/");
+      toast.success("Register successfully...");
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error.message);
+    }
+
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     const user = userCredential.user;
+    //     // console.log(user);
+    //     setIsLoading(false);
+    //     toast.success("Registration Successful...");
+    //     navigate("/login");
+    //   })
+
+    //   .catch((error) => {
+    //     toast.error(error.message);
+    //     setIsLoading(false);
+    //   });
   };
 
   return (

@@ -7,7 +7,6 @@ import { Card, Loader } from "~/components";
 import { useState } from "react";
 import {
   GoogleAuthProvider,
-  RecaptchaVerifier,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -84,7 +83,6 @@ const Login = () => {
         toast.error(error.message);
       });
   };
-  //Login google
 
   const provider = new GoogleAuthProvider();
 
