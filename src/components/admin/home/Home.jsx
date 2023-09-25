@@ -24,22 +24,21 @@ const Home = () => {
   const orders = useSelector(selectOrderHistory);
   const totalOrderAmount = useSelector(selectTotalOrderAmount);
 
-  //Fetch Collection Product
-  const fcProduct = useFetchCollection("products");
+  const fbProducts = useFetchCollection("products");
   const { data } = useFetchCollection("orders");
-
+  console.log("data in collection orders", data);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(
       STORE_PRODUCTS({
-        products: fcProduct.data,
+        products: fbProducts.data,
       })
     );
+
     dispatch(STORE_ORDER(data));
 
     dispatch(CALC_TOTAL_ORDERS_AMOUNT());
-  }, [dispatch, data, fcProduct]);
+  }, [dispatch, data, fbProducts]);
 
   return (
     <div className={cx("home")}>

@@ -14,7 +14,7 @@ const OrderDetails = () => {
   const [order, setOrder] = useState(null);
   const { id } = useParams();
   const { document } = useFetchDocument("documents", id);
-
+  console.log("Document", document);
   useEffect(() => {
     setOrder(document);
   }, [document]);

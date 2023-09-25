@@ -33,6 +33,7 @@ const ProductFilter = () => {
     "All",
     ...new Set(products.map((product) => product.brand)),
   ];
+  // console.log(allBrands);
 
   useEffect(() => {
     dispatch(FILTER_BY_BRAND({ products, brand }));

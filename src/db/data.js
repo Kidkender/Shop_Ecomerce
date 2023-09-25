@@ -6,7 +6,7 @@ export const productsData = [
     price: 89.99,
     desc: "Áo khoác da nam thời trang từ Zara.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/1.-Vintage-Fashion-Style.jpg",
+      "https://i.pinimg.com/736x/5d/16/e7/5d16e706d4b64c00b0d78b61191b0239.jpg",
     rating: 4.5,
     stock: 50,
     color: "Đen",
@@ -19,7 +19,7 @@ export const productsData = [
     price: 59.99,
     desc: "Váy maxi hoa dễ thương từ H&M.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/2.-Artsy-Fashion-Style.jpg",
+      "https://i.pinimg.com/564x/dd/e3/fe/dde3fe7c0a6a8f95a4428046f89891b8.jpg",
     rating: 4.2,
     stock: 40,
     color: "Xanh lá cây",
@@ -32,7 +32,7 @@ export const productsData = [
     price: 69.99,
     desc: "Quần bò nam phong cách từ Levi's.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/3.-Grunge-Style-Clothing.jpg",
+      "https://i.pinimg.com/736x/b0/f0/d6/b0f0d640c25c6ca1f7dc1e7098ab9f7d.jpg",
     rating: 4.3,
     stock: 60,
     color: "Xanh đậm",
@@ -45,7 +45,7 @@ export const productsData = [
     price: 49.99,
     desc: "Áo len nữ ấm áp từ Gap.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/4.-Chic-Fashion-Style.jpg",
+      "https://hips.hearstapps.com/hmg-prod/images/hbz-street-style-mfw-2018-day5-01-1519680327.jpg",
     rating: 4.0,
     stock: 55,
     color: "Hồng",
@@ -58,7 +58,7 @@ export const productsData = [
     price: 79.99,
     desc: "Giày thể thao nam từ Nike.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/5.-Bohemian-Fashion-Style.jpg",
+      "https://hips.hearstapps.com/hmg-prod/images/gettyimages-924181180-1568310644.jpg?resize=980:*",
     rating: 4.6,
     stock: 45,
     color: "Trắng",
@@ -71,7 +71,7 @@ export const productsData = [
     price: 99.99,
     desc: "Đầm dự tiệc lộng lẫy từ ASOS.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/6.-Sexy-Fashion-Style.jpg",
+      "https://leoncechenal.com/wp-content/uploads/2023/08/french_fall_fashion_trends.webp",
     rating: 4.4,
     stock: 30,
     color: "Vàng",
@@ -84,7 +84,7 @@ export const productsData = [
     price: 29.99,
     desc: "Balo học sinh thời trang từ JanSport.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/7.-Casual-Fashion-Style.jpg",
+      "https://i.pinimg.com/474x/31/8c/df/318cdf4d6e784ce738cfc5dc29c1dbc9.jpg",
     rating: 4.7,
     stock: 70,
     color: "Xanh dương",
@@ -97,7 +97,7 @@ export const productsData = [
     price: 39.99,
     desc: "Áo len nam ấm áp từ Uniqlo.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/9.-Trendy-Fashion-Style.jpg",
+      "https://i.pinimg.com/474x/93/06/58/9306583f1dd8b6e2943a16c72eb66a1f.jpg",
     rating: 4.2,
     stock: 65,
     color: "Xám",
@@ -110,7 +110,7 @@ export const productsData = [
     price: 44.99,
     desc: "Áo sơ mi nữ dễ thương từ Mango.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/10.-Minimalism-Fashion-Style.jpg",
+      "https://i.pinimg.com/736x/b1/62/0d/b1620d84e8817f466e06876ba97b35de.jpg",
     rating: 4.3,
     stock: 50,
     color: "Trắng",
@@ -123,7 +123,7 @@ export const productsData = [
     price: 69.99,
     desc: "Giày cao gót nữ thời trang từ Steve Madden.",
     imageURL:
-      "https://www.hoodmwr.com/wp-content/uploads/2023/03/11.-Preppy-Fashion-Style.jpg",
+      "https://i.pinimg.com/736x/17/f8/d8/17f8d818491173e299a47342710af6e2.jpg",
     rating: 4.8,
     stock: 35,
     color: "Đen",

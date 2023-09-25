@@ -32,12 +32,11 @@ const Cart = () => {
   const increaseCart = (cart) => {
     dispatch(ADD_TO_CART(cart));
   };
-  const removeFromCart = (cart) => {
-    dispatch(REMOVE_FROM_CART(cart));
-  };
-
   const decreaseCart = (cart) => {
     dispatch(DECREASE_CART(cart));
+  };
+  const removeFromCart = (cart) => {
+    dispatch(REMOVE_FROM_CART(cart));
   };
 
   const clearCart = () => {

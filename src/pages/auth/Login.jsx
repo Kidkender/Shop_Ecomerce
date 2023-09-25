@@ -22,15 +22,20 @@ const Login = () => {
 
   const navigate = useNavigate();
   //Custom
+  // function getCookie(name) {
+  //   const cookies = document.cookie.split(";");
+  //   for (let i = 0; i < cookies.length; i++) {
+  //     const cookie = cookies[i].trim();
+  //     if (cookie.startsWith(name + "=")) {
+  //       return cookie.substring(name.length + 1);
+  //     }
+  //   }
+  //   return null;
+  // }
+
   function getCookie(name) {
-    const cookies = document.cookie.split(";");
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.startsWith(name + "=")) {
-        return cookie.substring(name.length + 1);
-      }
-    }
-    return null;
+    const v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
+    return v ? v[2] : null;
   }
   const postIdTokenToSessionLogin = async (endpoint, idToken, csrfToken) => {
     return fetch(endpoint, {
@@ -70,12 +75,17 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
+
         return user.getIdToken().then((idToken) => {
           setIsLoading(false);
           console.log("IdToken", idToken);
 
           navigate("/");
           toast.success("Login Successfully...");
+
+          // const csrfToken = getCookie("csrfToken");
+          // console.log("csrf Token", csrfToken);
+          // return postIdTokenToSessionLogin("/sessionLogin", idToken, csrfToken);
         });
       })
       .catch((error) => {
@@ -89,12 +99,15 @@ const Login = () => {
   const loginWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
         const user = result.user;
-        // console.log("token user", user);
+
+        // console.log("token user", user.email);
         toast.success("Login Successfully...");
-        navigate("/");
+        if (user.email == "kidkender@gmail.com") {
+          navigate("/admin/home");
+        } else {
+          navigate("/");
+        }
       })
       .catch((error) => {
         toast.error(error.message);

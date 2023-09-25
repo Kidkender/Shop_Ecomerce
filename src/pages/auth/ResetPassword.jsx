@@ -7,28 +7,51 @@ import { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "~/firebase/config";
 import { toast } from "react-toastify";
+import httpRequest from "~/utils/httpRequest";
 const cx = classNames.bind(styles);
 const ResetPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
-  const resetPassword = (e) => {
+  const resetPassword = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        toast.success("Check your email for a reset link");
-        setIsLoading(false);
-        setTimeout(() => {
-          navigate("/login");
-        }, 5000);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        toast.error(error.message);
-      });
+    try {
+      await httpRequest
+        .post("/auth/resetPassword", {
+          email,
+        })
+        .then(() => {
+          toast.success("Check you email for a reset link");
+          setIsLoading(false);
+          setTimeout(() => {
+            navigate("/login");
+          }, 5000);
+        })
+        .catch((error) => {
+          // console.log("Have errror", error.response.data.message);
+          toast.error(error.response.data.message);
+          setIsLoading(false);
+        });
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error.message);
+    }
+
+    // sendPasswordResetEmail(auth, email)
+    //   .then(() => {
+    //     toast.success("Check your email for a reset link");
+    //     setIsLoading(false);
+    //     setTimeout(() => {
+    //       navigate("/login");
+    //     }, 5000);
+    //   })
+    //   .catch((error) => {
+    //     setIsLoading(false);
+    //     toast.error(error.message);
+    //   });
   };
   return (
     <>

@@ -65,13 +65,6 @@ const Product = () => {
 
   return (
     <section>
-      <button
-        onClick={() => {
-          productsData.map((product) => addProduct(product));
-        }}
-      >
-        Test add product
-      </button>
       <div className={`container ${cx("product")}`}>
         <aside
           className={
@@ -99,6 +92,13 @@ const Product = () => {
           </div>
         </div>
       </div>
+      <button
+        onClick={() => {
+          productsData.map((product) => addProduct(product));
+        }}
+      >
+        Test add product
+      </button>
     </section>
   );
 };

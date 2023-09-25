@@ -49,13 +49,13 @@ const getFirebaseToken = async () => {
   });
 };
 
-httpRequest.interceptors.request.use(async (config) => {
-  //Fix race condition
-  const token = await getFirebaseToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// httpRequest.interceptors.request.use(async (config) => {
+//   //Fix race condition
+//   const token = await getFirebaseToken();
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
 
 export default httpRequest;
