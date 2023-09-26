@@ -22,7 +22,8 @@ import { BiExport } from "react-icons/bi";
 import { AiOutlineFileWord } from "react-icons/ai";
 import { CSVLink } from "react-csv";
 import ItemProduct_Admin from "./ItemProduct_Admin";
-import InfiniteScroll from "react-infinite-scroll-component";
+// import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from "react-infinite-scroller";
 
 const cx = classNames.bind(styles);
 
@@ -117,7 +118,7 @@ const ViewProducts = () => {
         {filteredProducts.length === 0 ? (
           <p>No product found.</p>
         ) : (
-          <table>
+          <table style={{ tableLayout: "auto" }}>
             <thead>
               <tr>
                 <th>s/n</th>
@@ -129,63 +130,67 @@ const ViewProducts = () => {
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <InfiniteScroll
-                style={{ width: "100%" }}
-                dataLength={currentProducts.length}
-                next={loadMore}
-                hasMore={
-                  currentProducts.length >= products.length ? false : true
-                }
-                loader={<h4>Loading...</h4>}
-                endMessend={<p>No more products to load</p>}
-              >
-                {currentProducts.map((product, index) => {
-                  const { id, name, brand, price, imageURL, category } =
-                    product;
-                  return (
-                    <ItemProduct_Admin
-                      id={id}
-                      key={index}
-                      index={index}
-                      name={name}
-                      Brand={brand}
-                      imageURL={imageURL}
-                      price={price}
-                      category={category}
-                      className={"icons"}
-                      func={() => confirmDelete(id, imageURL)}
-                    />
+            {/* <tbody> */}
+            <InfiniteScroll
+              style={{ width: "100%" }}
+              // dataLength={currentProducts.length}
+              // next={loadMore}
+              loadMore={loadMore}
+              element="tbody"
+              hasMore={currentProducts.length >= products.length ? false : true}
+              loader={<h4>Loading...</h4>}
 
-                    // <tr key={id}>
-                    //   <td>{index + 1}</td>
-                    //   <td>
-                    //     <img
-                    //       src={imageURL}
-                    //       alt={name}
-                    //       style={{ width: "100px" }}
-                    //     />
-                    //   </td>
-                    //   <td>{name}</td>
-                    //   <td>{category}</td>
-                    //   <td>{`$${price}`}</td>
-                    //   <td className={cx("icons")}>
-                    //     <Link to={`/admin/add-product/${id}`}>
-                    //       <FaEdit size={20} color="green" />
-                    //       &nbsp;
-                    //       <FaTrashAlt
-                    //         size={18}
-                    //         color="red"
-                    //         onClick={() => confirmDelete(id, imageURL)}
-                    //       />
-                    //     </Link>
-                    //   </td>
-                    // </tr>
-                  );
-                })}
-              </InfiniteScroll>
-            </tbody>
-            {/* <button onClick={() => loadMore()}>Load More</button> */}
+              // endMessage={
+              //   <p style={{ textAlign: "center" }}>
+              //     <b>Yay! You have seen it all</b>
+              //   </p>
+              // }
+            >
+              {currentProducts.map((product, index) => {
+                const { id, name, brand, price, imageURL, category } = product;
+                return (
+                  <ItemProduct_Admin
+                    id={id}
+                    key={index}
+                    index={index}
+                    name={name}
+                    Brand={brand}
+                    imageURL={imageURL}
+                    price={price}
+                    category={category}
+                    className={"icons"}
+                    func={() => confirmDelete(id, imageURL)}
+                  />
+
+                  // <tr key={id}>
+                  //   <td>{index + 1}</td>
+                  //   <td>
+                  //     <img
+                  //       src={imageURL}
+                  //       alt={name}
+                  //       style={{ width: "100px" }}
+                  //     />
+                  //   </td>
+                  //   <td>{name}</td>
+                  //   <td>{category}</td>
+                  //   <td>{brand}</td>
+                  //   <td>{`$${price}`}</td>
+                  //   <td className={cx("icons")}>
+                  //     <Link to={`/admin/add-product/${id}`}>
+                  //       <FaEdit size={20} color="green" />
+                  //       &nbsp;
+                  //       <FaTrashAlt
+                  //         size={18}
+                  //         color="red"
+                  //         onClick={() => confirmDelete(id, imageURL)}
+                  //       />
+                  //     </Link>
+                  //   </td>
+                  // </tr>
+                );
+              })}
+            </InfiniteScroll>
+            {/* </tbody> */}
           </table>
         )}
 

@@ -4,7 +4,7 @@ import styles from "./Auth.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { Card, Loader } from "~/components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -13,12 +13,17 @@ import {
 import { auth } from "~/firebase/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import httpRequest from "~/utils/httpRequest";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [loginAttempts, setLoginAttempts] = useState(0);
+  const [isBlocked, setIsBlocked] = useState(false);
 
   const navigate = useNavigate();
   //Custom
@@ -53,45 +58,73 @@ const Login = () => {
       return response.json();
     });
   };
-
+  useEffect(() => {
+    async function BlockUser() {
+      if (loginAttempts >= 5) {
+        const res = await httpRequest
+          .post("/auth/blockuser", {
+            email,
+          })
+          .then(() => {
+            setIsBlocked(true);
+          })
+          .catch((error) => console.log(error));
+      }
+    }
+    BlockUser();
+  }, [loginAttempts, email]);
   const loginUser = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // try {
-    //   const res = await httpRequest.post("/auth/login", {
-    //     email,
-    //     password,
-    //   });
-    //   setIsLoading(false);
-    //   console.log("IdToken", res.newToken);
-    //   navigate("/");
-    //   toast.success("Login Successfully...");
-    // } catch (error) {
-    //   setIsLoading(false);
-    //   toast.error(error.message);
-    // }
+    if (isBlocked) {
+      toast.error("Your account is blocked.");
+      return;
+    }
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-
-        return user.getIdToken().then((idToken) => {
-          setIsLoading(false);
-          console.log("IdToken", idToken);
-
-          navigate("/");
-          toast.success("Login Successfully...");
-
-          // const csrfToken = getCookie("csrfToken");
-          // console.log("csrf Token", csrfToken);
-          // return postIdTokenToSessionLogin("/sessionLogin", idToken, csrfToken);
-        });
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        toast.error(error.message);
+    try {
+      const res = await httpRequest.post("/auth/login", {
+        email,
+        password,
       });
+      setIsLoading(false);
+      console.log("IdToken", res.data);
+      console.log("Status", res.status);
+
+      if (res.status == 200) {
+        navigate("/");
+        toast.success("Login Successfully...");
+      } else {
+        setLoginAttempts(loginAttempts + 1);
+        toast.warning("Password invalid");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error.message);
+    }
+
+    // signInWithEmailAndPassword(auth, email, password)
+    //   .then(async (userCredential) => {
+    //     const user = userCredential.user;
+
+    //     return user.getIdToken().then((idToken) => {
+    //       setIsLoading(false);
+    //       console.log("IdToken", idToken);
+
+    //       navigate("/");
+    //       toast.success("Login Successfully...");
+
+    //       // const csrfToken = getCookie("csrfToken");
+    //       // console.log("csrf Token", csrfToken);
+    //       // return postIdTokenToSessionLogin("/sessionLogin", idToken, csrfToken);
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     // setAttempLogin((PrevattempLogin) => ({}));
+    //     setIsLoading(false);
+    //     toast.error(error.message);
+    //     console.log("error", error);
+    //   });
   };
 
   const provider = new GoogleAuthProvider();

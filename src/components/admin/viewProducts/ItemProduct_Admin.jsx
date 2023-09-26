@@ -17,7 +17,7 @@ const ItemProduct_Admin = ({
   className,
 }) => {
   return (
-    <tr key={index}>
+    <tr>
       <td>{index + 1}</td>
       <td>
         <img src={imageURL} alt={name} style={{ width: "100px" }} />

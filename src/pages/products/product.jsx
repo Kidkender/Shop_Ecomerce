@@ -12,7 +12,7 @@ import {
   selectProducts,
 } from "~/redux/slice/productSlice";
 
-import { ProductFilter, ProductList } from "~/components/product";
+import { ProductFilter, ProductItem, ProductList } from "~/components/product";
 import { productsData } from "~/db/data";
 //Test
 import { Timestamp, addDoc, collection } from "firebase/firestore";
@@ -62,6 +62,8 @@ const Product = () => {
       toast.error(error.message);
     }
   };
+
+  useEffect(() => {}, [ProductFilter]);
 
   return (
     <section>
